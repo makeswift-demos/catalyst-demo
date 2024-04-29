@@ -16,9 +16,10 @@ import SlideshowBG from './slideshow-bg-01.jpg';
 interface Props {
   className?: string;
   slides: React.ReactNode[];
+  bgImage?: string;
 }
 
-export const Hero = ({ className, slides }: Props) => (
+export const Hero = ({ className, slides, bgImage }: Props) => (
   <Slideshow className={className}>
     <SlideshowContent>
       {slides.length > 0 ? (
@@ -30,7 +31,7 @@ export const Hero = ({ className, slides }: Props) => (
                 className="absolute -z-10 object-cover"
                 fill
                 priority
-                src={SlideshowBG}
+                src={bgImage ?? SlideshowBG}
               />
               <div className="flex flex-col gap-4 px-12 pb-48 pt-36">{slide}</div>
             </div>
