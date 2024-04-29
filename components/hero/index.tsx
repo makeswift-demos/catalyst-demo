@@ -1,6 +1,5 @@
 import Image from 'next/image';
 
-import { Button } from '@bigcommerce/components/button';
 import {
   Slideshow,
   SlideshowAutoplayControl,
@@ -14,10 +13,33 @@ import {
 
 import SlideshowBG from './slideshow-bg-01.jpg';
 
-export const Hero = () => (
-  <Slideshow>
+interface Props {
+  className?: string;
+  slides: React.ReactNode[];
+}
+
+export const Hero = ({ className, slides }: Props) => (
+  <Slideshow className={className}>
     <SlideshowContent>
-      <SlideshowSlide>
+      {slides.length > 0 ? (
+        slides.map((slide, index) => (
+          <SlideshowSlide key={index}>
+            <div className="relative">
+              <Image
+                alt="an assortment of brandless products against a blank background"
+                className="absolute -z-10 object-cover"
+                fill
+                priority
+                src={SlideshowBG}
+              />
+              <div className="flex flex-col gap-4 px-12 pb-48 pt-36">{slide}</div>
+            </div>
+          </SlideshowSlide>
+        ))
+      ) : (
+        <div>Add some slides!</div>
+      )}
+      {/* <SlideshowSlide>
         <div className="relative">
           <Image
             alt="an assortment of brandless products against a blank background"
@@ -61,7 +83,7 @@ export const Hero = () => (
             <a href="/#">Shop now</a>
           </Button>
         </div>
-      </SlideshowSlide>
+      </SlideshowSlide> */}
     </SlideshowContent>
     <SlideshowControls>
       <SlideshowAutoplayControl />
